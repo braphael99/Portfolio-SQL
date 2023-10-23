@@ -1,0 +1,29 @@
+1.)SELECT Student.name
+FROM Student, Computer
+WHERE Student.ssn IS Computer.ssn
+
+INTERSECT
+
+SELECT Student.name
+FROM Student, University
+WHERE Student.univID IS University.univID
+AND University.location = "IL"
+
+2.)SELECT Student.name
+FROM Student
+WHERE Student.age <= 21 AND Student.univID = 3
+
+3.)SELECT Student.name
+FROM Student
+WHERE Student.age <= 21
+
+4.)SELECT AVG(Student.age) AS avgAge
+FROM Student, Computer
+WHERE Student.ssn IS Computer.ssn
+AND Computer.os = "WXP"
+
+5.)SELECT Student.name
+FROM Student, Computer
+WHERE Student.ssn IS Computer.ssn
+AND Computer.os = "WXP"
+AND Student.age = 21

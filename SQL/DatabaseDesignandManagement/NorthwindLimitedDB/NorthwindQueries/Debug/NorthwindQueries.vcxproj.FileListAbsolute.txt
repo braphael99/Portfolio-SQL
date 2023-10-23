@@ -1,0 +1,2 @@
+C:\Users\braph\Desktop\Portfolio\SQL\Database Design and Management\NorthwindLimitedDB\NorthwindQueries\Debug\NorthwindQueries.exe
+C:\Users\braph\Desktop\Portfolio\SQL\Database Design and Management\NorthwindLimitedDB\NorthwindQueries\Debug\NorthwindQueries.pdb

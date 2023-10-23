@@ -1,0 +1,103 @@
+1.)SELECT Course.name, Section.sectionID, Professor.first, Professor.last
+FROM Course, Section, Professor
+WHERE Course.courseID = Section.courseID
+AND Section.professorID = Professor.professorID
+
+2.)SELECT Course.name, Section.sectionID, Course.description
+FROM Course, Department, Section
+WHERE Course.deptID = Department.deptID
+AND Department.name = "Computer Science"
+AND Course.courseID = Section.courseID
+
+3.)SELECT Professor.first, Professor.last
+FROM Course, Professor, Section
+WHERE Professor.professorID = Section.professorID
+AND Course.courseID = Section.courseID
+AND Course.name = "CSCI111"
+GROUP BY Professor.professorID
+
+4.)SELECT Professor.first, Professor.last, Department.name
+FROM Professor, Department, ProfessorBelongsToDepartment
+WHERE ProfessorBelongsToDepartment.professorID = Professor.professorID
+AND ProfessorBelongsToDepartment.deptID = Department.deptID
+
+5.)SELECT Professor.first, Professor.last
+FROM Professor, Course, Section
+WHERE Course.courseID = Section.courseID
+AND Professor.professorID = Section.professorID
+AND Course.name = "CSCI111"
+
+INTERSECT
+
+SELECT Professor.first, Professor.last
+FROM Professor, Course, Section
+WHERE Course.courseID = Section.courseID
+AND Professor.professorID = Section.professorID
+AND Course.name = "CSCI112"
+GROUP BY Professor.professorID
+
+6.)SELECT * 
+FROM Student, Professor, Section, StudentTakesSection
+WHERE Student.age >= 21
+AND Professor.professorID = Section.professorID
+AND Professor.last = "Mahoney"
+AND StudentTakesSection.sectionID = Section.sectionID
+AND Student.ssn = StudentTakesSection.ssn
+
+16.)SELECT Student.first, Student.last
+FROM Student, Course, Section, StudentTakesSection
+WHERE Student.ssn = StudentTakesSection.ssn
+AND StudentTakesSection.sectionID = Section.sectionID
+AND Course.courseID = Section.courseID
+AND Course.name = "CSCI111"
+GROUP BY Student.last
+
+17.)SELECT Professor.first, Professor.last
+FROM Department, Professor, ProfessorBelongsToDepartment
+WHERE ProfessorBelongsToDepartment.professorID = Professor.professorID
+AND ProfessorBelongsToDepartment.deptID = Department.deptID
+AND Department.name = "Computer Science"
+AND Professor.professorID IN (
+	SELECT Professor.professorID
+	FROM Professor, Department, ProfessorBelongsToDepartment
+	WHERE ProfessorBelongsToDepartment.professorID = Professor.professorID
+	AND ProfessorBelongsToDepartment.deptID = Department.deptID
+	AND Professor.professorID != Department.chair
+	GROUP BY Professor.professorID
+	);
+
+18.)SELECT Professor.first, Professor.last
+FROM Department, Professor, ProfessorBelongsToDepartment
+WHERE ProfessorBelongsToDepartment.professorID = Professor.professorID
+AND ProfessorBelongsToDepartment.deptID = Department.deptID
+AND Professor.professorID IN (
+	SELECT Professor.professorID
+	FROM Professor, Department, ProfessorBelongsToDepartment
+	WHERE ProfessorBelongsToDepartment.professorID = Professor.professorID
+	AND ProfessorBelongsToDepartment.deptID = Department.deptID
+	AND Professor.professorID = Department.chair
+	GROUP BY Professor.professorID
+	);
+
+19.)SELECT Student.ssn, Student.first, Student.last, StudentTakesSection.grade
+FROM Student, Section, StudentTakesSection, Course
+WHERE StudentTakesSection.sectionID = Section.sectionID
+AND Student.ssn = StudentTakesSection.ssn
+AND Section.courseID = Course.courseID
+AND Section.year = "2007"
+AND Section.semester = "Spring"
+
+20.)SELECT Section.sectionID, Course.name
+FROM Course, Section
+WHERE Course.courseID = Section.courseID
+AND Section.semester = "Fall"
+
+21.)SELECT Professor.first, Professor.last
+FROM Professor
+WHERE Professor.professorID IN (
+	SELECT Professor.professorID
+	FROM Professor, Section
+	WHERE Section.professorID = Professor.professorID
+	AND Section.semester = "Spring"
+	AND Section.year = "2007"
+	);

@@ -1,0 +1,95 @@
+1.) SELECT Suppliers.ContactName
+FROM Suppliers
+WHERE Suppliers.HomePage != ""
+
+2.)SELECT Orders.OrderID
+FROM Orders, Employees
+WHERE Orders.EmployeeID = Employees.EmployeeID
+AND Employees.FirstName = "Janet"
+AND Employees.LastName = "Leverling"
+
+3.)SELECT Customers.CompanyName
+FROM Customers, Orders, Shippers
+WHERE Orders.CustomerID = Customers.CustomerID
+AND Orders.ShipVia = Shippers.ShipperID
+AND Shippers.CompanyName = "United Package"
+
+4.)SELECT *
+FROM Employees
+ORDER BY Employees.LastName, Employees.FirstName
+
+5.)SELECT COUNT(*)
+FROM Orders
+
+6.)SELECT Products.ProductName, MIN(Products.UnitPrice)
+FROM Products
+
+7.)SELECT AVG(Products.UnitPrice)
+FROM Products
+
+8.)SELECT *
+FROM Products
+WHERE Products.UnitsInStock > 0
+
+9.)SELECT COUNT(*)
+FROM Employees
+
+10.)SELECT Employees.FirstName, Employees.LastName
+FROM Employees
+WHERE Employees.BirthDate IN (
+	SELECT MAX(Employees.BirthDate)
+	FROM Employees
+	)
+
+11.)SELECT Employees.FirstName, Employees.LastName, (DATE('now') - Employees.BirthDate) AS "Age"
+FROM Employees
+WHERE (DATE('now') - Employees.BirthDate) >= 55
+
+12.)SELECT Products.ProductName, Suppliers.CompanyName
+FROM Suppliers, Products, Categories
+WHERE Products.SupplierID = Suppliers.SupplierID
+AND Products.CategoryID = Categories.CategoryID
+AND Categories.CategoryName IN ( 
+	SELECT Categories.CategoryName
+	FROM Categories
+	WHERE Categories.CategoryName = "Meat/Poultry"
+	OR Categories.CategoryName = "Produce"
+)
+
+13.)SELECT Employees.FirstName, Employees.LastName, Employees.Notes
+FROM Employees
+WHERE Employees.ReportsTo IN (
+	SELECT Managers.EmployeeID
+	FROM Employees AS Managers, Employees AS Worker 
+	WHERE Managers.EmployeeID = Worker.ReportsTo 
+	AND Managers.FirstName = "Andrew"
+	AND Managers.LastName = "Fuller"
+	GROUP BY Worker.ReportsTo, Managers.FirstName, Managers.LastName
+	)
+
+14.)SELECT DISTINCT Employees.FirstName, Employees.LastName
+FROM Employees, Orders, Customers
+WHERE Employees.EmployeeID = Orders.EmployeeID
+AND Orders.CustomerID = Customers.CustomerID
+AND Customers.CompanyName = "The Cracker Box"
+
+15.)SELECT Employees.FirstName, Employees.LastName, Employees.HireDate
+FROM Employees
+ORDER BY Employees.HireDate
+
+16.)SELECT SUM((DATE('now') - Employees.HireDate))
+FROM Employees
+
+17.)SELECT Employees.EmployeeID, COUNT(Orders.OrderID)
+FROM Employees, Orders
+WHERE Employees.EmployeeID = Orders.EmployeeID
+GROUP BY Employees.EmployeeID 
+
+18.)SELECT Products.ProductName, MAX(Products.UnitsInStock)
+FROM Products
+
+19.)SELECT COUNT(*)
+FROM Orders
+
+20.)SELECT AVG((DATE('now') - Employees.HireDate))
+FROM Employees

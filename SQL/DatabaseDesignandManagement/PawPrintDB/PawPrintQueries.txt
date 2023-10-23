@@ -1,0 +1,19 @@
+1.) SELECT name
+FROM Dogs
+WHERE age = 1;
+
+2.)SELECT name
+FROM Dogs
+WHERE temperament = "Aggressive"
+AND age < 5;
+
+3.)SELECT name, age
+FROM Dogs
+WHERE age >= 2
+AND age <= 5;
+
+4.)SELECT name, age
+FROM Dogs
+WHERE breed = "Schnauzer";
+
+5.)
